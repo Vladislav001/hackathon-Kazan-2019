@@ -8,6 +8,9 @@ const questionSchema = mongoose.Schema({
     type: {
         type: String // select/rating
     },
+    options: {
+        type: Array
+    },
     poll_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true

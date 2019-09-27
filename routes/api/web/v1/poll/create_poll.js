@@ -1,5 +1,6 @@
 const Poll = require('../../../../../models/poll');
 const Question = require('../../../../../models/question');
+const fs = require('fs');
 
 exports.post = function (req, res) {
     try {
@@ -7,11 +8,18 @@ exports.post = function (req, res) {
         let newPoll = new Poll();
         newPoll.title = req.body.title;
         newPoll.text = req.body.text;
-        newPoll.image = req.body.image;
         newPoll.video = req.body.video;
         newPoll.geo = req.body.geo;
         newPoll.date_created = new Date().getTime();
 
+        if(req.file)
+        {
+            console.log( req.file);
+            let expantion = req.file.originalname.split('.')[1];
+            fs.renameSync(`./public/uploads/${req.file.originalname}`, `./public/uploads/${newPoll._id}.${expantion}`);
+            newPoll.image = '/uploads/' + newPoll._id;
+        }
+       
         req.body.questions.forEach(function(item, i, arr) {
         let newQuestion = new Question();
         newQuestion.title = item.title;
@@ -20,12 +28,6 @@ exports.post = function (req, res) {
         newQuestion.poll_id = newPoll._id;
         newQuestion.save();
         });
-
-        
-
-        // let newOption = new Option();
-        // newOption.text = req.body.text;
-        // newOption.question_id = req.body.question_id;
 
         newPoll.save();
         res.status(200).send('');
