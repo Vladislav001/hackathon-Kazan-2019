@@ -11,6 +11,10 @@ exports.post = function (req, res) {
         newPoll.video = req.body.video;
         newPoll.geo = req.body.geo;
         newPoll.date_created = new Date().getTime();
+        newPoll.is_company = req.body.is_company;
+        newPoll.age = req.body.age;
+        newPoll.gender = req.body.gender;
+        newPoll.location = req.body.location;
         newPoll.save();
 
         if(req.file)

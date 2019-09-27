@@ -19,6 +19,18 @@ const pollSchema = mongoose.Schema({
     },
     date_created: {
         type: String,
+    },
+    is_company: {
+        type: Number,
+    },
+    age: {
+        type: Object,
+    },
+    gender: {
+        type: String,
+    },
+    location: {
+        type: String
     }
 });
 
