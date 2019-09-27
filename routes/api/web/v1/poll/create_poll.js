@@ -1,6 +1,5 @@
 const Poll = require('../../../../../models/poll');
 const Question = require('../../../../../models/question');
-const Option = require('../../../../../models/option');
 
 exports.post = function (req, res) {
     try {
@@ -11,15 +10,18 @@ exports.post = function (req, res) {
         newPoll.image = req.body.image;
         newPoll.video = req.body.video;
         newPoll.geo = req.body.geo;
-        newPoll.date_created = req.body.date_created;
+        newPoll.date_created = new Date().getTime();
 
-        console.log(newPoll._id);
-        // foreach 
+        req.body.questions.forEach(function(item, i, arr) {
+        let newQuestion = new Question();
+        newQuestion.title = item.title;
+        newQuestion.type = item.type;
+        newQuestion.options = item.options;
+        newQuestion.poll_id = newPoll._id;
+        newQuestion.save();
+        });
 
-        // let newQuestion = new Question();
-        // newQuestion.title = req.body.title;
-        // newQuestion.type = req.body.type;
-        // newQuestion.poll_id = newPoll._id;
+        
 
         // let newOption = new Option();
         // newOption.text = req.body.text;
