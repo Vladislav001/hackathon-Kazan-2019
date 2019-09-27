@@ -28,14 +28,6 @@ const upload = multer({
 });
 
 
-////**** WEB API START****\\\\
-router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
-////**** WEB API END****\\\\
-
-
-
-////**** MOBILE API START****\\\\
-
 // swagger definition
 const swaggerDefinition = require('../swagger.json');
 
@@ -56,52 +48,11 @@ router.get('/swagger.json', function (req, res) {
     res.send(swaggerSpec);
 });
 
+////**** WEB API START****\\\\
 
 /**
  * @swagger
- * /api/v1/user/registration:
- *   post:
- *     tags:
- *       - ""
- *     summary: "Регистрация пользователя"
- *     description: ""
- *     produces:
- *       - application/json
- *     parameters:
- *     - name: "email"
- *       in: "x-www-form-urlencoded"
- *       description: "Почта"
- *       required: true
- *       type: "string"
- *     - name: "password"
- *       in: "x-www-form-urlencoded"
- *       description: "Пароль"
- *       required: true
- *       type: "string"
- *     responses:
- *       200:
- *        description: Пользователь успешно зарегистрирован
- *        examples:
- *           application/json: { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMTdkMWE1ZjI5MGNjMGRhMDIzYTQwYyIsImlhdCI6MTU0NTA2NDg2OSwiZXhwIjoxNTQ1MTUxMjY5fQ.Qb-klBvif8IhW4YXAoOftdLSpiqBgl7wMTsj0gMxPsU" }
- *       401:
- *         description: Введены неверные данные
- *         examples:
- *           application/json:
- *            {
- *              errors:
- *              [
- *                {
- *                 id: 1, message: Пользователь с такой почтой уже зарегистрирован
- *                }
- *              ]
- *            }
- *
- */
-router.post('/api/mobile/v1/user/registration', require('./api/mobile/v1/user/registration').post);
-
-/**
- * @swagger
- * /api/v1/user/login:
+ * /api/web/v1/user/login:
  *   post:
  *     tags:
  *       - ""
@@ -110,9 +61,9 @@ router.post('/api/mobile/v1/user/registration', require('./api/mobile/v1/user/re
  *     produces:
  *       - application/json
  *     parameters:
- *     - name: "email"
+ *     - name: "phone"
  *       in: "x-www-form-urlencoded"
- *       description: "Почта"
+ *       description: "Телефон"
  *       required: true
  *       type: "string"
  *     - name: "password"
@@ -133,7 +84,95 @@ router.post('/api/mobile/v1/user/registration', require('./api/mobile/v1/user/re
  *              errors:
  *              [
  *                {
- *                 id: 2, message: Вы ввели неверную почту или пароль
+ *                 id: 2, message: Вы ввели неверный телефон или пароль
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
+
+////**** WEB API END****\\\\
+
+
+////**** MOBILE API START****\\\\
+/**
+ * @swagger
+ * /api/v1/mobile/user/registration:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Регистрация пользователя"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "phone"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Телефон"
+ *       required: true
+ *       type: "string"
+ *     - name: "password"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Пароль"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: Пользователь успешно зарегистрирован
+ *        examples:
+ *           application/json: { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMTdkMWE1ZjI5MGNjMGRhMDIzYTQwYyIsImlhdCI6MTU0NTA2NDg2OSwiZXhwIjoxNTQ1MTUxMjY5fQ.Qb-klBvif8IhW4YXAoOftdLSpiqBgl7wMTsj0gMxPsU" }
+ *       401:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                 id: 1, message: Пользователь с таким телефоном уже зарегистрирован
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/mobile/v1/user/registration', require('./api/mobile/v1/user/registration').post);
+
+/**
+ * @swagger
+ * /api/mobile/v1/user/login:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Авторизация пользователя"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "phone"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Телефон"
+ *       required: true
+ *       type: "string"
+ *     - name: "password"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Пароль"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: Пользователь успешно авторизован
+ *        examples:
+ *           application/json: { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMTdkMWE1ZjI5MGNjMGRhMDIzYTQwYyIsImlhdCI6MTU0NTA2NDg2OSwiZXhwIjoxNTQ1MTUxMjY5fQ.Qb-klBvif8IhW4YXAoOftdLSpiqBgl7wMTsj0gMxPsU" }
+ *       401:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                 id: 2, message: Вы ввели неверную телефон или пароль
  *                }
  *              ]
  *            }
