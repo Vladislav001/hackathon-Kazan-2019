@@ -14,8 +14,11 @@ const pollSchema = mongoose.Schema({
     video: {
         type: String,
     },
-    get: {
-        type: Object
+    geo: {
+        type: Object,
+    },
+    date_created: {
+        type: String,
     }
 });
 
