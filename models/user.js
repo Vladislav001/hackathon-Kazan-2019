@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    email: {
+    phone: {
         type: String,
         required: true
     },
@@ -9,11 +9,12 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    web_token: {
+    token: {
         type: String,
     },
-    mobile_token: {
-        type: String,
+    role: {
+        type: String, // admin, legal_entity, physical_entity
+        required: true
     }
 });
 

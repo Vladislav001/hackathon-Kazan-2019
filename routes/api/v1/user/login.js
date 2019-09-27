@@ -6,22 +6,30 @@ const jwt = require('jsonwebtoken');
 
 exports.post = function (req, res) {
 
-    let email = req.body.email;
+    let phone = req.body.phone;
     let password = req.body.password;
     let errors = [];
 
-    User.findOne({ 'email': email }, function (err, user) {
+    User.findOne({ 'phone': phone }, function (err, user) {
         if (err) throw err;
 
         if (!user) {
-            errors.push(apiError.createError("2", 'Вы ввели неверную почту или пароль'));
+            errors.push(apiError.createError("2", 'Вы ввели неверный телефон или пароль'));
             return res.status(401).json({
                 errors
             });
         }
 
         if (!bCryptPassword.isValidPassword(user, password)) {
-            errors.push(apiError.createError("2", 'Вы ввели неверную почту или пароль'));
+            errors.push(apiError.createError("2", 'Вы ввели неверный телефон или пароль'));
+            return res.status(401).json({
+                errors
+            });
+        }
+
+        if (user.role === "admin")
+        {
+            errors.push(apiError.createError("2", 'Вы ввели неверный телефон или пароль'));
             return res.status(401).json({
                 errors
             });

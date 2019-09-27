@@ -28,12 +28,13 @@ const upload = multer({
 });
 
 
+////**** WEB API START****\\\\
+router.post('/auth/login', require('./auth/login').post);
+////**** WEB API END****\\\\
 
 
 
-router.post('/auth/registration', require('./auth/registration').post);
-
-////**** API ****\\\\
+////**** MOBILE API START****\\\\
 
 // swagger definition
 const swaggerDefinition = require('../swagger.json');
@@ -185,5 +186,6 @@ router.post('/api/v1/user/registration', require('./api/v1/user/registration').p
  *
  */
 router.post('/api/v1/user/login', require('./api/v1/user/login').post);
+////**** MOBILE API END****\\\\
 
 module.exports = router;

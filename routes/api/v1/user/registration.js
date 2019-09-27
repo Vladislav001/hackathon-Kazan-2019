@@ -8,23 +8,33 @@ exports.post = function (req, res) {
 
     let errors = [];
 
-    let email = req.body.email;
+    let phone = req.body.phone;
     let password = req.body.password;
-
-    User.findOne({'email': email}, function (err, user) {
+    let role = req.body.role;
+    console.log(role);
+    User.findOne({'phone': phone}, function (err, user) {
         if (err) {
             return done(err);
         }
 
         if (user) {
-            errors.push(apiError.createError("1", 'Пользователь с такой почтой уже зарегистрирован'));
+            errors.push(apiError.createError("1", 'Пользователь с таким номером уже зарегистрирован'));
             return res.status(401).json({
                 errors
             });
         } else {
             let newUser = new User();
-            newUser.email = email;
+            newUser.phone = phone;
             newUser.password = bCryptPassword.createHash(password);
+
+            if(role === "admin")
+            {
+                newUser.role = 'physical_entity';
+            }
+            else
+            {
+                newUser.role = role;
+            }
 
             let token = jwt.sign({id: newUser._id}, constants.SECRET_STRING, {
                 expiresIn: constants.TIME_LIFE_TOKEN
