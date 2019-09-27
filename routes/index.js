@@ -137,7 +137,7 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
  *            }
  *
  */
-router.post('/api/web/v1/poll/create_poll', upload.single('file'), require('./api/web/v1/poll/create_poll').post);
+router.post('/api/web/v1/poll/create', upload.single('file'), require('./api/web/v1/poll/create').post);
 ////**** WEB API END****\\\\
 
 
