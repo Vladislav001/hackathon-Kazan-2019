@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const swaggerJSDoc = require('swagger-jsdoc');
 const multer = require('multer');
+const verifyToken = require('../middleware/verify_token');
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, './public/uploads/');
@@ -137,7 +138,7 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
  *            }
  *
  */
-router.post('/api/web/v1/poll/create', upload.single('file'), require('./api/web/v1/poll/create').post);
+router.post('/api/web/v1/poll/create', verifyToken, upload.single('file'), require('./api/web/v1/poll/create').post);
 ////**** WEB API END****\\\\
 
 
