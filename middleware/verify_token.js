@@ -28,8 +28,9 @@ function verifyToken(req, res, next) {
                 });
             }
 
-            // т.к срок действия старых токенов мог еще не истечь
+        // т.к срок действия старых токенов мог еще не истечь
         if (user.token === token) {
+            res.user = user;
             return next();
         } else {
             errors.push(apiError.createError("2", 'Введен неверный токен, или срок действия токена истек'));

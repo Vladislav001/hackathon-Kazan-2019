@@ -3,6 +3,7 @@ const router = express.Router();
 const swaggerJSDoc = require('swagger-jsdoc');
 const multer = require('multer');
 const verifyToken = require('../middleware/verify_token');
+const isAdmin = require('../middleware/is_admin');
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, './public/uploads/');
@@ -95,57 +96,73 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
 
 /**
  * @swagger
- * /api/web/v1/poll/create_poll:
+ * /api/web/v1/poll/create:
  *   post:
  *     tags:
  *       - ""
- *     summary: "Создание опроса"
+ *     summary: "Создание опрос"
  *     description: ""
  *     produces:
  *       - application/json
  *     parameters:
- *     - title: "title"
- *       text: "text"
- *       image: "image file"
- *       video: "video href"
- *       geo: {
- *              "latitude": "latitude",
- *              "longitude": "longitude"
- *              }
- *       date_created: "date created",
- *       questions: [
- * 	        {
- *  		    "title": "str1",
- * 		        "type": "type1",
- *		        "options": ["Ford", "BMW", "Fiat"]
- *	        }]
+ *     - name: "title"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Заголовок опроса"
+ *       required: true
+ *       type: "string"
+ *     - name: "text"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Тело опроса"
+ *       type: "string"
+ *     - name: "video"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Ссылка на видео"
+ *       type: "string"
+ *     - name: "geo"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Формат: geo {latitude, longitude}"
+ *       type: "object"
+ *     - name: "date_created"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Дата создания опроса"
+ *       type: "String"
+ *     - name: "image"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Картинка"
+ *       type: "file"
+ *     - name: "question"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Массив объектов вопросов с полями title, type(select/rating), options(массив возможных ответов)"
+ *       type: "array"
  *     responses:
  *       200:
  *        description: ''
- *        examples:
- *           application/json: { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMTdkMWE1ZjI5MGNjMGRhMDIzYTQwYyIsImlhdCI6MTU0NTA2NDg2OSwiZXhwIjoxNTQ1MTUxMjY5fQ.Qb-klBvif8IhW4YXAoOftdLSpiqBgl7wMTsj0gMxPsU" }
  *       403:
- *         description: ''
+ *         description: Введены неверные данные
  *         examples:
  *           application/json:
  *            {
  *              errors:
  *              [
  *                {
- *
- *                }
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }       
  *              ]
  *            }
  *
  */
-router.post('/api/web/v1/poll/create', verifyToken, upload.single('file'), require('./api/web/v1/poll/create').post);
+router.post('/api/web/v1/poll/create', verifyToken, isAdmin, upload.single('file'), require('./api/web/v1/poll/create').post);
 ////**** WEB API END****\\\\
 
 
 ////**** MOBILE API START****\\\\
 /**
  * @swagger
- * /api/v1/mobile/user/registration:
+ * /api/mobile/v1/user/registration:
  *   post:
  *     tags:
  *       - ""
