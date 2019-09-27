@@ -117,6 +117,36 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
  *       description: "Пароль"
  *       required: true
  *       type: "string"
+ *     - name: "is_company"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Компания? - 0 или 1"
+ *       required: true
+ *       type: "number"
+ *     - name: "company"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Название компании"
+ *       required: false
+ *       type: "string"
+ *     - name: "fio"
+ *       in: "x-www-form-urlencoded"
+ *       description: "ФИО"
+ *       required: false
+ *       type: "string"
+ *     - name: "gender"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Название компании"
+ *       required: false
+ *       type: "string"
+ *     - name: "age"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Возраст"
+ *       required: false
+ *       type: "number"
+ *     - name: "location"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Локация"
+ *       required: false
+ *       type: "string"
  *     responses:
  *       200:
  *        description: Пользователь успешно зарегистрирован
