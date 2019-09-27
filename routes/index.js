@@ -181,6 +181,10 @@ router.post('/api/web/v1/poll/create', verifyToken, isAdmin, upload.single('file
  *       description: "Пароль"
  *       required: true
  *       type: "string"
+ *     - name: "nickname"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Никнейм"
+ *       type: "string"
  *     - name: "firebase_token"
  *       in: "x-www-form-urlencoded"
  *       description: "Firebase токен"
@@ -279,6 +283,63 @@ router.post('/api/mobile/v1/user/registration', require('./api/mobile/v1/user/re
  */
 router.post('/api/mobile/v1/user/login', require('./api/mobile/v1/user/login').post);
 
+/**
+ * @swagger
+ * /api/mobile/v1/user/update:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Обновление данных пользователя"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "nickname"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Никнейм"
+ *       type: "string"
+ *     - name: "company"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Название компании"
+ *       type: "string"
+ *     - name: "fio"
+ *       in: "x-www-form-urlencoded"
+ *       description: "ФИО"
+ *       type: "string"
+ *     - name: "gender"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Пол"
+ *       type: "string"
+ *     - name: "age"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Возраст"
+ *       type: "number"
+ *     - name: "location"
+ *       in: "x-www-form-urlencoded"
+ *       description: "location"
+ *       type: "Локация"
+ *     responses:
+ *       200:
+ *        description: Пользователь успешно обновлен
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/mobile/v1/user/update', verifyToken, require('./api/mobile/v1/user/update').post);
 
 
 // examples
