@@ -1,7 +1,7 @@
-const User = require('../../../../models/user');
-const constants = require('../../../../functions/constants');
-const bCryptPassword = require('../../../../functions/bcryptpassword');
-const apiError = require('../../../../functions/apierror');
+const User = require('../../../../../models/user');
+const constants = require('../../../../../functions/constants');
+const bCryptPassword = require('../../../../../functions/bcryptpassword');
+const apiError = require('../../../../../functions/apierror');
 const jwt = require('jsonwebtoken');
 
 exports.post = function (req, res) {

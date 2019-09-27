@@ -1,4 +1,4 @@
-const Example = require('../../../models/example');
+const Example = require('../../../../models/example');
 
 exports.post = async function (req, res) {
     try {

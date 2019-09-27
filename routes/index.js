@@ -29,7 +29,7 @@ const upload = multer({
 
 
 ////**** WEB API START****\\\\
-router.post('/auth/login', require('./auth/login').post);
+router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
 ////**** WEB API END****\\\\
 
 
@@ -56,52 +56,6 @@ router.get('/swagger.json', function (req, res) {
     res.send(swaggerSpec);
 });
 
-/**
- * @swagger
- * /api/v1/example:
- *   post:
- *     tags:
- *       - ""
- *     summary: "Example API"
- *     description: ""
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *        description: Example data
- *        examples:
- *           application/json: { "_id": "5d1bab42042e52e0444e81af", "name": "some" }
- */
-router.post('/api/v1/example', require('./api/v1/example').post);
-
-/**
- * @swagger
- * /api/v1/example-upload-file:
- *   post:
- *     tags:
- *       - ""
- *     summary: "Example upload file"
- *     description: ""
- *     produces:
- *       - form-data
- *     parameters:
- *     - name: "id"
- *       in: "form-data"
- *       description: "ID записи"
- *       required: true
- *       type: "string"
- *     - name: "file"
- *       in: "form-data"
- *       description: "Файл для загрузки"
- *       required: true
- *       type: "file"
- *     responses:
- *       200:
- *        description: Example data
- *        examples:
- *           application/json: { }
- */
-router.post('/api/v1/example-upload-file', upload.single('file'), require('./api/v1/example_upload_file').post);
 
 /**
  * @swagger
@@ -143,7 +97,7 @@ router.post('/api/v1/example-upload-file', upload.single('file'), require('./api
  *            }
  *
  */
-router.post('/api/v1/user/registration', require('./api/v1/user/registration').post);
+router.post('/api/mobile/v1/user/registration', require('./api/mobile/v1/user/registration').post);
 
 /**
  * @swagger
@@ -185,7 +139,60 @@ router.post('/api/v1/user/registration', require('./api/v1/user/registration').p
  *            }
  *
  */
-router.post('/api/v1/user/login', require('./api/v1/user/login').post);
+router.post('/api/mobile/v1/user/login', require('./api/mobile/v1/user/login').post);
+
+
+
+// examples
+
+/**
+ * @swagger
+ * /api/v1/example:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Example API"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *        description: Example data
+ *        examples:
+ *           application/json: { "_id": "5d1bab42042e52e0444e81af", "name": "some" }
+ */
+router.post('/api/v1/example', require('./api/mobile/v1/example').post);
+
+/**
+ * @swagger
+ * /api/v1/example-upload-file:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Example upload file"
+ *     description: ""
+ *     produces:
+ *       - form-data
+ *     parameters:
+ *     - name: "id"
+ *       in: "form-data"
+ *       description: "ID записи"
+ *       required: true
+ *       type: "string"
+ *     - name: "file"
+ *       in: "form-data"
+ *       description: "Файл для загрузки"
+ *       required: true
+ *       type: "file"
+ *     responses:
+ *       200:
+ *        description: Example data
+ *        examples:
+ *           application/json: { }
+ */
+router.post('/api/v1/example-upload-file', upload.single('file'), require('./api/mobile/v1/example_upload_file').post);
+
+
 ////**** MOBILE API END****\\\\
 
 module.exports = router;
