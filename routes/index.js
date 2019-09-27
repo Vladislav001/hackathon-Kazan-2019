@@ -92,6 +92,52 @@ router.get('/swagger.json', function (req, res) {
  */
 router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
 
+/**
+ * @swagger
+ * /api/web/v1/poll/create_poll:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Создание опроса"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - title: "title"
+ *       text: "text"
+ *       image: "image file"
+ *       video: "video href"
+ *       geo: {
+ *              "latitude": "latitude",
+ *              "longitude": "longitude"
+ *              }
+ *       date_created: "date created",
+ *       questions: [
+ * 	        {
+ *  		    "title": "str1",
+ * 		        "type": "type1",
+ *		        "options": ["Ford", "BMW", "Fiat"]
+ *	        }]
+ *     responses:
+ *       200:
+ *        description: ''
+ *        examples:
+ *           application/json: { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMTdkMWE1ZjI5MGNjMGRhMDIzYTQwYyIsImlhdCI6MTU0NTA2NDg2OSwiZXhwIjoxNTQ1MTUxMjY5fQ.Qb-klBvif8IhW4YXAoOftdLSpiqBgl7wMTsj0gMxPsU" }
+ *       403:
+ *         description: ''
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/web/v1/poll/create_poll', upload.single('file'), require('./api/web/v1/poll/create_poll').post);
 ////**** WEB API END****\\\\
 
 
@@ -116,6 +162,11 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
  *       in: "x-www-form-urlencoded"
  *       description: "Пароль"
  *       required: true
+ *       type: "string"
+ *     - name: "firebase_token"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Firebase токен"
+ *       required: false
  *       type: "string"
  *     - name: "is_company"
  *       in: "x-www-form-urlencoded"

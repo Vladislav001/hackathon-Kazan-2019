@@ -12,6 +12,9 @@ const userSchema = mongoose.Schema({
     token: {
         type: String,
     },
+    firebase_token: {
+        type: String,
+    },
     role: {
         type: String, // admin, legal_entity, physical_entity
         required: true
