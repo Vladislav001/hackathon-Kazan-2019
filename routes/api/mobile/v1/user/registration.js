@@ -10,8 +10,15 @@ exports.post = function (req, res) {
 
     let phone = req.body.phone;
     let password = req.body.password;
+    let nickname = req.body.nickname;
     let role = req.body.role;
-    console.log(role);
+    let is_company = req.body.is_company;
+    let company = req.body.company;
+    let fio = req.body.fio;
+    let gender = req.body.gender;
+    let age = req.body.age;
+    let location = req.body.location;
+
     User.findOne({'phone': phone}, function (err, user) {
         if (err) {
             return done(err);
@@ -26,15 +33,32 @@ exports.post = function (req, res) {
             let newUser = new User();
             newUser.phone = phone;
             newUser.password = bCryptPassword.createHash(password);
+            newUser.nickname = nickname;
 
             if(role === "admin")
             {
-                newUser.role = 'physical_entity';
+                errors.push(apiError.createError("3", 'Нельзя регистрировать администратора'));
+                return res.status(401).json({
+                    errors
+                });
+            }
+
+            if(is_company == 1)
+            {
+                newUser.is_company = true;
+                newUser.company = company;
+                newUser.role = "legal_entity";
             }
             else
             {
-                newUser.role = role;
+                newUser.role = "physical_entity";
+                newUser.is_company = false;
+                newUser.fio = fio;
+                newUser.gender = gender;
+                newUser.age = age;
             }
+
+            newUser.location = location;
 
             let token = jwt.sign({id: newUser._id}, constants.SECRET_STRING, {
                 expiresIn: constants.TIME_LIFE_TOKEN

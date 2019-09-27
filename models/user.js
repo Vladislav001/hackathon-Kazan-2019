@@ -15,6 +15,24 @@ const userSchema = mongoose.Schema({
     role: {
         type: String, // admin, legal_entity, physical_entity
         required: true
+    },
+    is_company: {
+        type: Number,
+    },
+    company: {
+        type: String,
+    },
+    fio: {
+        type: String,
+    },
+    gender: {
+        type: String,
+    },
+    age: {
+        type: Number
+    },
+    location: {
+        type: String
     }
 });
 
