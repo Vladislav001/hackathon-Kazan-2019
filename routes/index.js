@@ -134,6 +134,22 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
  *       in: "x-www-form-urlencoded"
  *       description: "Массив объектов вопросов с полями title, type(select/rating), options(массив возможных ответов)"
  *       type: "array"
+ *     - name: "is_company"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Компания ли"
+ *       type: "Number"
+ *     - name: "age"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Возраст формата { min, max}"
+ *       type: "Object"
+ *     - name: "gender"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Пол"
+ *       type: "String"
+ *     - name: "location"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Место опроса"
+ *       type: "String"
  *     responses:
  *       200:
  *        description: ''
@@ -156,6 +172,8 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
  *
  */
 router.post('/api/web/v1/poll/create', verifyToken, isAdmin, upload.single('file'), require('./api/web/v1/poll/create').post);
+
+router.post('/api/web/v1/poll/update', verifyToken, isAdmin, upload.single('file'), require('./api/web/v1/poll/update').post);
 ////**** WEB API END****\\\\
 
 
