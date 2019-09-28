@@ -184,6 +184,90 @@ router.post('/api/web/v1/poll/delete_questions', verifyToken, isAdmin, require('
 
 router.get('/api/web/v1/poll/get-polls', verifyToken, require('./api/web/v1/poll/get-polls').get);
 
+router.post('/api/web/v1/poll/statistic', verifyToken, isAdmin, require('./api/web/v1/poll/statistic').post);
+
+/**
+ * @swagger
+ * /api/web/v1/poll/download-file:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Загрузка файла"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     - name: "title"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Заголовок опроса"
+ *       required: true
+ *       type: "string"
+ *     - name: "text"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Тело опроса"
+ *       type: "string"
+ *     - name: "video"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Ссылка на видео"
+ *       type: "string"
+ *     - name: "geo"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Формат: geo {latitude, longitude}"
+ *       type: "object"
+ *     - name: "date_created"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Дата создания опроса"
+ *       type: "String"
+ *     - name: "image"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Картинка"
+ *       type: "file"
+ *     - name: "question"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Массив объектов вопросов с полями title, type(select/rating), options(массив возможных ответов)"
+ *       type: "array"
+ *     - name: "is_company"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Компания ли"
+ *       type: "Number"
+ *     - name: "age"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Возраст формата { min, max}"
+ *       type: "Object"
+ *     - name: "gender"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Пол"
+ *       type: "String"
+ *     - name: "location"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Место опроса"
+ *       type: "String"
+ *     responses:
+ *       200:
+ *        description: ''
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }       
+ *              ]
+ *            }
+ *
+ */
 router.post('/api/web/v1/poll/download-file', verifyToken, isAdmin, upload.single('file'), require('./api/web/v1/poll/download-file').post);
 /**
  * @swagger
