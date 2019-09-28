@@ -179,6 +179,8 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
 router.post('/api/web/v1/poll/create', verifyToken, isAdmin, upload.single('file'), require('./api/web/v1/poll/create').post);
 
 router.post('/api/web/v1/poll/update', verifyToken, isAdmin, upload.single('file'), require('./api/web/v1/poll/update').post);
+
+router.post('/api/web/v1/poll/delete_questions', verifyToken, isAdmin, require('./api/web/v1/poll/delete_questions').post);
 ////**** WEB API END****\\\\
 
 

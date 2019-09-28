@@ -24,6 +24,7 @@ exports.post = function (req, res) {
             newPoll.image = '/uploads/' + newPoll._id;
         }
        
+        var newQuestions = [];
         req.body.questions.forEach(function(item, i, arr) {
             let newQuestion = new Question();
             newQuestion.title = item.title;
@@ -31,15 +32,19 @@ exports.post = function (req, res) {
             newQuestion.options = item.options;
             newQuestion.poll_id = newPoll._id;
             newQuestion.save();
+            newQuestions.push(newQuestion);
         });
-
+        
+        let newQuestion=newQuestions;
+        
         let notificationData = {
             my_key: 'my value',
             my_another_key: 'my another value'
         }
         firebase.sendPushNotification(res.user, 'Title of your push notification', 'Body of your push notification', notificationData);
 
-        res.status(200).send('');
+        
+        res.status(200).send({newPoll, newQuestion});
     } catch (err) {
         res.status(403).send('');
         throw err;
