@@ -67,7 +67,7 @@ exports.post = async function(req, res) {
 
         res.status(200).send({newPoll, newQuestion});
     } catch (err) {
-        res.status(403).send('');
+        res.status(401).send('');
         throw err;
     }
 };
