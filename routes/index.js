@@ -209,6 +209,7 @@ router.post('/api/web/v1/poll/delete_questions', verifyToken, isAdmin, require('
  *     - name: "nickname"
  *       in: "x-www-form-urlencoded"
  *       description: "Никнейм"
+ *       required: true
  *       type: "string"
  *     - name: "firebase_token"
  *       in: "x-www-form-urlencoded"
@@ -650,6 +651,7 @@ router.get('/api/mobile/v1/poll/get-completed-list', verifyToken, require('./api
  */
 router.post('/api/mobile/v1/comment/create', verifyToken, require('./api/mobile/v1/comment/create').post);
 
+router.post('/api/mobile/v1/comment/create-like-dislike', verifyToken, require('./api/mobile/v1/comment/create_like_dislike').post);
 
 // examples
 /**

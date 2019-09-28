@@ -11,7 +11,10 @@ const likeCommentSchema = mongoose.Schema({
     },
     liked_user_id: {
         type: String
+    },
+    is_like: {
+        type: Number
     }
 });
 
-module.exports = mongoose.model('LikeComment', likeCommentSchema);
+module.exports = mongoose.model('Like_Comment', likeCommentSchema);
