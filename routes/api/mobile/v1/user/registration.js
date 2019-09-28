@@ -73,6 +73,7 @@ exports.post = function (req, res) {
         });
 
     } catch (err) {
+        res.status(404).send();
         throw err;
     }
 };
