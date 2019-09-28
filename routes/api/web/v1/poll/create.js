@@ -61,7 +61,7 @@ exports.post = async function(req, res) {
 
         users.forEach(function (item, i, arr) {
             if (item.firebase_token) {
-                firebase.sendPushNotification(item.firebase_token, 'Title of your push notification', 'Body of your push notification', notificationData);
+                firebase.sendPushNotification(item.firebase_token, 'Пожалуйста, пройдите опрос',  item.title, notificationData);
             }
         });
 
