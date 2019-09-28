@@ -31,6 +31,9 @@ const pollSchema = mongoose.Schema({
     },
     location: {
         type: String
+    },
+    legal_type: {
+        type: String // null, 'company', 'person'
     }
 });
 

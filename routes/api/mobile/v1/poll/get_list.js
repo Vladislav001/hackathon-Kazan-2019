@@ -6,13 +6,23 @@ exports.get = async function (req, res) {
         let user = await User.findOne({_id: res.user._id});
         let polls = {};
 
-        if (user.is_company == 1) {
+        if (user.legal_type == 'company') {
             polls = await Poll.find({
-                is_company: 1
+               // legal_type: 'company'
+                "$or": [{
+                    'legal_type': 'company'
+                }, {
+                    'legal_type':"null"
+                }]
             });
-        } else if (user.is_company == 0) {
+        } else if (user.legal_type == 'person') {
             let filter = {
-                is_company: 0
+                //legal_type: 'person'
+                "$or": [{
+                    'legal_type': 'person'
+                }, {
+                    'legal_type':"null"
+                }]
             };
             if (user.gender) {
                 filter.gender = user.gender;
@@ -23,6 +33,8 @@ exports.get = async function (req, res) {
             }
 
             polls = await Poll.find(filter);
+        } else if (user.legal_type == 'null' || !user.legal_type) {
+            polls = await Poll.find({});
         }
 
         res.status(200).send(polls);

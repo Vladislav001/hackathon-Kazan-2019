@@ -46,12 +46,14 @@ exports.post = function (req, res) {
                     newUser.is_company = true;
                     newUser.company = company;
                     newUser.role = "legal_entity";
+                    newUser.legal_type = 'company';
                 } else {
                     newUser.role = "physical_entity";
                     newUser.is_company = false;
                     newUser.fio = fio;
                     newUser.gender = gender;
                     newUser.age = age;
+                    newUser.legal_type = 'person';
                 }
 
                 newUser.location = location;

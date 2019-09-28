@@ -25,6 +25,9 @@ const userSchema = mongoose.Schema({
     is_company: {
         type: Number,
     },
+    legal_type: {
+      type: String // null, 'company', 'person'
+    },
     company: {
         type: String,
     },
