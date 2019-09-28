@@ -400,6 +400,49 @@ router.post('/api/mobile/v1/user/update', verifyToken, require('./api/mobile/v1/
 
 /**
  * @swagger
+ * /api/mobile/v1/user/update-firebase-token:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Обновление firebase токена"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     - name: "firebaseToken"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Firebase токен"
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description:
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/mobile/v1/user/update-firebase-token', verifyToken, require('./api/mobile/v1/user/update_firebase_token').post);
+
+/**
+ * @swagger
  * /api/mobile/v1/poll/get-list:
  *   get:
  *     tags:
