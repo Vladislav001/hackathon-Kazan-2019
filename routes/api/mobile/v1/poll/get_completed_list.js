@@ -1,11 +1,11 @@
 const User = require('../../../../../models/user');
-const Poll = require('../../../../../models/poll');
+const CompletedPoll = require('../../../../../models/completed_poll');
 
 exports.get = async function (req, res) {
     try {
         let user = await User.findOne({_id: res.user._id});
 
-        let polls = await Poll.find({
+        let completedPolls = await Poll.find({
             is_company: user.is_company,
             gender: user.gender,
             'age.min': {$lte: user.age},

@@ -512,6 +512,12 @@ router.get('/api/mobile/v1/poll/detail/:id', verifyToken, require('./api/mobile/
  */
 router.post('/api/mobile/v1/answer/submit', verifyToken, require('./api/mobile/v1/answer/submit').post);
 
+router.post('/api/mobile/v1/poll/create-completed', verifyToken, require('./api/mobile/v1/poll/create_completed').post);
+router.get('/api/mobile/v1/poll/get-completed-list', verifyToken, require('./api/mobile/v1/poll/get_completed_list').get);
+
+
+
+
 // examples
 /**
  * @swagger
