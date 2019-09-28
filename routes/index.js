@@ -183,6 +183,29 @@ router.post('/api/web/v1/poll/update', verifyToken, isAdmin, upload.single('file
 router.post('/api/web/v1/poll/delete_questions', verifyToken, isAdmin, require('./api/web/v1/poll/delete_questions').post);
 
 router.get('/api/web/v1/poll/get-polls', verifyToken, require('./api/web/v1/poll/get-polls').get);
+
+/**
+ * @swagger
+ * /api/web/v1/poll/delete-poll:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Удаление опроса опрос"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "_id"
+ *       in: "body"
+ *       description: "Poll id"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: ''
+ *
+ */
+router.post('/api/web/v1/poll/delete-poll', verifyToken, isAdmin, require('./api/web/v1/poll/delete-poll').post);
 ////**** WEB API END****\\\\
 
 
