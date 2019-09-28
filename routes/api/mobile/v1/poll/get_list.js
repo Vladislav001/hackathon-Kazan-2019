@@ -12,7 +12,7 @@ exports.get = async function (req, res) {
                 "$or": [{
                     'legal_type': 'company'
                 }, {
-                    'legal_type':"null"
+                    'legal_type': null
                 }]
             });
         } else if (user.legal_type == 'person') {
@@ -21,7 +21,7 @@ exports.get = async function (req, res) {
                 "$or": [{
                     'legal_type': 'person'
                 }, {
-                    'legal_type':"null"
+                    'legal_type': null
                 }]
             };
             if (user.gender) {

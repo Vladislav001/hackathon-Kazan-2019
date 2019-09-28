@@ -43,7 +43,7 @@ exports.post = function (req, res) {
                     });
                 }
 
-                if (is_company == 1) {
+                if (is_company == 1 || is_company == "1") {
                     newUser.is_company = true;
                     newUser.company = company;
                     newUser.role = "legal_entity";
