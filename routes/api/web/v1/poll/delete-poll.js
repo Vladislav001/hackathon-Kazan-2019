@@ -13,9 +13,9 @@ exports.post = async function (req, res) {
             Answer.deleteOne({"question_id": item._id});
         })
         await Question.deleteMany({'poll_id': req.body._id});
+        await Like_Comment.deleteMany({'poll_id': req.body._id});
         await Comment_Poll.deleteMany({'poll_id': req.body._id});
         await Completed_Poll.deleteMany({'poll_id': req.body._id});
-        await Like_Comment.deleteMany({'poll_id': req.body._id});
         await Poll.deleteOne({'_id': req.body._id});
         // await Answer.deleteOne({"question_id": req.body._id});
         // await Question.deleteOne({"_id": req.body._id});
