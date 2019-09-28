@@ -11,4 +11,4 @@ const completedPollSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('CompletedPoll', completedPollSchema);
+module.exports = mongoose.model('Completed_Poll', completedPollSchema);
