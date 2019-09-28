@@ -24,11 +24,11 @@ exports.get = async function (req, res) {
 
             res.status(200).send(data);
         } else {
-            res.status(404).send('');
+            res.status(404).send();
         }
 
     } catch (err) {
-        res.status(404).send('');
+        res.status(404).send();
         throw err;
     }
 };

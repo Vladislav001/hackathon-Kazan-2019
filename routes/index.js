@@ -456,7 +456,61 @@ router.get('/api/mobile/v1/poll/get-list', verifyToken, require('./api/mobile/v1
  */
 router.get('/api/mobile/v1/poll/detail/:id', verifyToken, require('./api/mobile/v1/poll/detail').get);
 
-
+/**
+ * @swagger
+ * /api/mobile/v1/answer/submit:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Отправка ответа на вопрос"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     - name: "question_id"
+ *       in: "x-www-form-urlencoded"
+ *       description: "ID вопроса"
+ *       required: true
+ *       type: "string"
+ *     - name: "text"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Текст"
+ *       required: false
+ *       type: "string"
+ *     - name: "rating"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Рейтинг (от 1 до 5)"
+ *       required: false
+ *       type: "number"
+ *     responses:
+ *       200:
+ *        description: Данные получены
+ *        examples:
+ *           application/json: { }
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/mobile/v1/answer/submit', verifyToken, require('./api/mobile/v1/answer/submit').post);
 
 // examples
 /**
