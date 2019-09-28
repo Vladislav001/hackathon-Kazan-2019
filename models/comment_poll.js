@@ -9,11 +9,13 @@ const commentPollSchema = mongoose.Schema({
         type: String
     },
     count_likes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     count_dislikes: {
-        type: Number
+        type: Number,
+        default: 0
     }
 });
 
-module.exports = mongoose.model('Comment', commentPollSchema);
+module.exports = mongoose.model('Comment_Poll', commentPollSchema);

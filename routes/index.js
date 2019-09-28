@@ -599,7 +599,54 @@ router.post('/api/mobile/v1/poll/create-completed', verifyToken, require('./api/
  */
 router.get('/api/mobile/v1/poll/get-completed-list', verifyToken, require('./api/mobile/v1/poll/get_completed_list').get);
 
-
+/**
+ * @swagger
+ * /api/mobile/v1/comment/create:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Создание пользователем комментария к опросу"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     - name: "poll_id"
+ *       in: "x-www-form-urlencoded"
+ *       description: "ID опроса"
+ *       required: true
+ *       type: "string"
+ *     - name: "text"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Текст комментария"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: ''
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/mobile/v1/comment/create', verifyToken, require('./api/mobile/v1/comment/create').post);
 
 
 // examples
