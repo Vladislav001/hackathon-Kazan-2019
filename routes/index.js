@@ -184,6 +184,7 @@ router.post('/api/web/v1/poll/delete_questions', verifyToken, isAdmin, require('
 
 router.get('/api/web/v1/poll/get-polls', verifyToken, require('./api/web/v1/poll/get-polls').get);
 
+router.post('/api/web/v1/poll/download-file', verifyToken, isAdmin, upload.single('file'), require('./api/web/v1/poll/download-file').post);
 /**
  * @swagger
  * /api/web/v1/poll/delete-poll:
