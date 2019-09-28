@@ -512,7 +512,91 @@ router.get('/api/mobile/v1/poll/detail/:id', verifyToken, require('./api/mobile/
  */
 router.post('/api/mobile/v1/answer/submit', verifyToken, require('./api/mobile/v1/answer/submit').post);
 
+/**
+ * @swagger
+ * /api/mobile/v1/poll/create-completed:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Завершение опроса авторизованным пользователем"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     - name: "poll_id"
+ *       in: "x-www-form-urlencoded"
+ *       description: "ID опроса"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: ''
+ *        examples:
+ *           application/json: { }
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
 router.post('/api/mobile/v1/poll/create-completed', verifyToken, require('./api/mobile/v1/poll/create_completed').post);
+
+/**
+ * @swagger
+ * /api/mobile/v1/poll/get-completed-list:
+ *   get:
+ *     tags:
+ *       - ""
+ *     summary: "Получение списка завершенных опросов авторизованным пользователем"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: ''
+ *        examples:
+ *           application/json: [{ "_id": "5d8eb2d7e84bbe0fb7f7d23e", "poll_id": "5d8ea993d778eb0d0cd69c3b", "user_id": "5d8e4824a8da7274a49b8843"}]
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
 router.get('/api/mobile/v1/poll/get-completed-list', verifyToken, require('./api/mobile/v1/poll/get_completed_list').get);
 
 
