@@ -19,12 +19,14 @@ exports.post = async function(req, res) {
         newPoll.legal_type = req.body.legal_type;
 
         var file=req.body.image;
-        let expantion = file.split('.')[1];
-        fs.renameSync('./public' + file, `./public/uploads/${newPoll.id}.${expantion}`);
-        newPoll.image = '/uploads/' + newPoll.id;
+        console.log(file);
+        if(file!=''){
+            let expantion = file.split('.')[1];
+            fs.renameSync('./public' + file, `./public/uploads/${newPoll.id}.${expantion}`);
+            newPoll.image = '/uploads/' + newPoll.id + '.' + expantion;
+        }
 
         newPoll.save();
-
        
         var newQuestions = [];
         req.body.questions.forEach(function(item, i, arr) {
