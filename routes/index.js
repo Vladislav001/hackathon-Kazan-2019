@@ -105,6 +105,11 @@ router.post('/api/web/v1/user/login', require('./api/web/v1/user/login').post);
  *     produces:
  *       - application/json
  *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
  *     - name: "title"
  *       in: "x-www-form-urlencoded"
  *       description: "Заголовок опроса"
@@ -312,6 +317,11 @@ router.post('/api/mobile/v1/user/login', require('./api/mobile/v1/user/login').p
  *     produces:
  *       - application/json
  *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
  *     - name: "nickname"
  *       in: "x-www-form-urlencoded"
  *       description: "Никнейм"
@@ -359,9 +369,156 @@ router.post('/api/mobile/v1/user/login', require('./api/mobile/v1/user/login').p
  */
 router.post('/api/mobile/v1/user/update', verifyToken, require('./api/mobile/v1/user/update').post);
 
+/**
+ * @swagger
+ * /api/mobile/v1/poll/get-list:
+ *   get:
+ *     tags:
+ *       - ""
+ *     summary: "Получение списка таргетированных опросов для текущего пользователя"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: Пользователь успешно обновлен
+ *        examples:
+ *           application/json: [{ "_id": "5d8e8d901da67a2d20a44a00", "title": "t1", "text": "John Smith", "video": "video href",
+ *           "geo": { "latitude": 34, "longitude": 22 }, "date_created": "1569623440104", "is_company": 0, "age": { "min": 44, "max": 65 },
+ *           "gender": "male", "location": "City"}]
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.get('/api/mobile/v1/poll/get-list', verifyToken, require('./api/mobile/v1/poll/get_list').get);
+
+/**
+ * @swagger
+ * /api/mobile/v1/poll/detail/id:
+ *   get:
+ *     tags:
+ *       - ""
+ *     summary: "Детальная страница опроса"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: Данные получены
+ *        examples:
+ *           application/json: { "_id": "5d8ea993d778eb0d0cd69c3b", "title": "t1", "text": "John Smith",
+ *           "video": "video href", "date_created": "1569630611960", "is_company": 1, "age": { "min": 4, "max": 35 },
+ *           "gender": "man", "questions": [ { "options": [ "Ford", "BMW", "Fiat" ], "_id": "5d8ea993d778eb0d0cd69c3c",
+ *           "title": "str1", "type": "type1", "poll_id": "5d8ea993d778eb0d0cd69c3b"}]}
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.get('/api/mobile/v1/poll/detail/:id', verifyToken, require('./api/mobile/v1/poll/detail').get);
+
+/**
+ * @swagger
+ * /api/mobile/v1/answer/submit:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Отправка ответа на вопрос"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     - name: "question_id"
+ *       in: "x-www-form-urlencoded"
+ *       description: "ID вопроса"
+ *       required: true
+ *       type: "string"
+ *     - name: "text"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Текст"
+ *       required: false
+ *       type: "string"
+ *     - name: "rating"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Рейтинг (от 1 до 5)"
+ *       required: false
+ *       type: "number"
+ *     responses:
+ *       200:
+ *        description: Данные получены
+ *        examples:
+ *           application/json: { }
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.post('/api/mobile/v1/answer/submit', verifyToken, require('./api/mobile/v1/answer/submit').post);
+
+router.post('/api/mobile/v1/poll/create-completed', verifyToken, require('./api/mobile/v1/poll/create_completed').post);
+router.get('/api/mobile/v1/poll/get-completed-list', verifyToken, require('./api/mobile/v1/poll/get_completed_list').get);
+
+
+
 
 // examples
-
 /**
  * @swagger
  * /api/v1/example:
