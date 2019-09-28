@@ -1,9 +1,10 @@
 const fs = require('fs');
+const User = require('../../../../../models/user');
 const Poll = require('../../../../../models/poll');
 const Question = require('../../../../../models/question');
 const firebase = require('../../../../../functions/firebase');
 
-exports.post = function (req, res) {
+exports.post = async function(req, res) {
     try {
         let newPoll = new Poll();
         newPoll.title = req.body.title;
@@ -34,19 +35,36 @@ exports.post = function (req, res) {
             newQuestion.save();
             newQuestions.push(newQuestion);
         });
-        
+
         let newQuestion=newQuestions;
         
         let notificationData = {
             my_key: 'my value',
             my_another_key: 'my another value'
-        }
-        firebase.sendPushNotification(res.user, 'Title of your push notification', 'Body of your push notification', notificationData);
+        };
 
-        
+        // filter
+        let usersFilter = {};
+        if (req.body.is_company == 1) {
+            usersFilter.is_company = 1;
+        } else if (req.body.is_company == 0) {
+            usersFilter.is_company = 0;
+            usersFilter.gender = gender;
+            usersFilter['age.min'] = {$lte: age};
+            usersFilter['age.max'] = {$gte: age};
+        }
+
+        let users = await User.find(usersFilter);
+
+        users.forEach(function (item, i, arr) {
+            if (item.firebase_token) {
+                firebase.sendPushNotification(item.firebase_token, 'Title of your push notification', 'Body of your push notification', notificationData);
+            }
+        });
+
         res.status(200).send({newPoll, newQuestion});
     } catch (err) {
         res.status(403).send('');
         throw err;
     }
-}
+};

@@ -491,7 +491,7 @@ router.get('/api/mobile/v1/poll/detail/:id', verifyToken, require('./api/mobile/
  *   post:
  *     tags:
  *       - ""
- *     summary: "Отправка ответа на вопрос"
+ *     summary: "Отправка массива обьектов ответов на вопросы"
  *     description: ""
  *     produces:
  *       - application/json
