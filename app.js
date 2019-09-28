@@ -14,6 +14,7 @@ mongoose.connect('mongodb://admin:123456v@ds119018.mlab.com:19018/hackathon-fina
 mongoose.set('useFindAndModify', false);
 
 app.use(cors());
+app.set('views', path.join(__dirname, 'template'));
 
 app.use(logger('dev')); 
 app.use(express.json());
