@@ -10,11 +10,13 @@ const commentPollSchema = mongoose.Schema({
     },
     count_likes: {
         type: Number,
-        default: 0
+        min: 0,
+        default: 0,
     },
     count_dislikes: {
         type: Number,
-        default: 0
+        min: 0,
+        default: 0,
     }
 });
 
