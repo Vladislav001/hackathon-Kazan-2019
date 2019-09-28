@@ -18,6 +18,7 @@ exports.post = function (req, res) {
         let gender = req.body.gender;
         let age = req.body.age;
         let location = req.body.location;
+        let firebase_token = req.body.firebase_token;
 
         User.findOne({'phone': phone}, function (err, user) {
             if (err) {
@@ -57,7 +58,7 @@ exports.post = function (req, res) {
                 }
 
                 newUser.location = location;
-
+                newUser.firebase_token = firebase_token;
                 let token = jwt.sign({id: newUser._id}, constants.SECRET_STRING, {
                     expiresIn: constants.TIME_LIFE_TOKEN
                 });
