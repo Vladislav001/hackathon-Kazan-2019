@@ -182,7 +182,7 @@ router.post('/api/web/v1/poll/update', verifyToken, isAdmin, upload.single('file
 
 router.post('/api/web/v1/poll/delete_questions', verifyToken, isAdmin, require('./api/web/v1/poll/delete_questions').post);
 
-router.get('/api/web/v1/poll/get_polls', verifyToken, require('./api/web/v1/poll/get_polls').get);
+router.get('/api/web/v1/poll/get-polls', verifyToken, require('./api/web/v1/poll/get-polls').get);
 ////**** WEB API END****\\\\
 
 
