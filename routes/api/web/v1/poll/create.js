@@ -21,8 +21,8 @@ exports.post = async function(req, res) {
         if(req.file)
         {
             let expantion = req.file.originalname.split('.')[1];
-            fs.renameSync(`./public/uploads/${req.file.originalname}`, `./public/uploads/${newPoll._id}.${expantion}`);
-            newPoll.image = '/uploads/' + newPoll._id;
+            fs.renameSync(`./public/uploads/${req.file.originalname}`, `./public/uploads/${newPoll.id}.${expantion}`);
+            newPoll.image = '/uploads/' + newPoll.id;
         }
        
         var newQuestions = [];
@@ -31,7 +31,7 @@ exports.post = async function(req, res) {
             newQuestion.title = item.title;
             newQuestion.type = item.type;
             newQuestion.options = item.options;
-            newQuestion.poll_id = newPoll._id;
+            newQuestion.poll_id = newPoll.id;
             newQuestion.save();
             newQuestions.push(newQuestion);
         });
