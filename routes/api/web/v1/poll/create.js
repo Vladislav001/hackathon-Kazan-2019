@@ -16,11 +16,11 @@ exports.post = async function(req, res) {
         newPoll.age = req.body.age;
         newPoll.gender = req.body.gender;
         newPoll.location = req.body.location;
-        newPoll.legal_type=req.body.legal_type;
+        newPoll.legal_type = req.body.legal_type;
 
         var file=req.body.image;
         let expantion = file.split('.')[1];
-        fs.renameSync('.' + file, `./public/uploads/${newPoll.id}.${expantion}`);
+        fs.renameSync('./public' + file, `./public/uploads/${newPoll.id}.${expantion}`);
         newPoll.image = '/uploads/' + newPoll.id;
 
         newPoll.save();
