@@ -16,6 +16,7 @@ exports.post = async function(req, res) {
         newPoll.age = req.body.age;
         newPoll.gender = req.body.gender;
         newPoll.location = req.body.location;
+        newPoll.legal_type=req.body.legal_type;
 
         var file=req.body.image;
         let expantion = file.split('.')[1];
