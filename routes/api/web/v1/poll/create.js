@@ -16,14 +16,14 @@ exports.post = async function(req, res) {
         newPoll.age = req.body.age;
         newPoll.gender = req.body.gender;
         newPoll.location = req.body.location;
+
+        var file=req.body.image;
+        let expantion = file.split('.')[1];
+        fs.renameSync('.' + file, `./public/uploads/${newPoll.id}.${expantion}`);
+        newPoll.image = '/uploads/' + newPoll.id;
+
         newPoll.save();
 
-        if(req.file)
-        {
-            let expantion = req.file.originalname.split('.')[1];
-            fs.renameSync(`./public/uploads/${req.file.originalname}`, `./public/uploads/${newPoll.id}.${expantion}`);
-            newPoll.image = '/uploads/' + newPoll.id;
-        }
        
         var newQuestions = [];
         req.body.questions.forEach(function(item, i, arr) {
