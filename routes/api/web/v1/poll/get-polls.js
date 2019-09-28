@@ -7,7 +7,7 @@ exports.get = async function (req, res) {
     let questions = await Question.find({});
     res.status(200).send({polls, questions});
     // try {
-    //     let user = await User.findOne({_id: res.user._id});
+    //     let user = await User.findOne({_id: res.user.id});
 
     //     let polls = await Poll.find({
     //         is_company: user.is_company,
