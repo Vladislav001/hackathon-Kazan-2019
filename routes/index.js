@@ -184,6 +184,36 @@ router.post('/api/web/v1/poll/delete_questions', verifyToken, isAdmin, require('
 
 router.get('/api/web/v1/poll/get-polls', verifyToken, require('./api/web/v1/poll/get-polls').get);
 
+/**
+ * @swagger
+ * /api/web/v1/poll/statistic:
+ *   post:
+ *     tags:
+ *       - ""
+ *     summary: "Статистика"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     - name: "title"
+ *       in: "x-www-form-urlencoded"
+ *       description: "Заголовок опроса"
+ *       required: true
+ *       type: "string"
+ *     - name: "id"
+ *       in: "x-www-form-urlencoded"
+ *       description: "id опроса"
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: ''
+ *
+ */
 router.post('/api/web/v1/poll/statistic', verifyToken, isAdmin, require('./api/web/v1/poll/statistic').post);
 
 /**
