@@ -7,7 +7,7 @@ const Like_Comment = require('../../../../../models/like_comment_poll');
 
 exports.post = async function (req, res) {
     // try{
-        // let poll = Poll.findOne({'_id':req.body._id});
+        // let poll = Poll.findOne({'_id':req.body.id});
         let questions = await Question.find({'poll_id': req.body.id});
         questions.forEach(function(item, i, arr){
             Answer.deleteOne({"question_id": item.id});
@@ -17,8 +17,8 @@ exports.post = async function (req, res) {
         await Comment_Poll.deleteMany({'poll_id': req.body.id});
         await Completed_Poll.deleteMany({'poll_id': req.body.id});
         await Poll.deleteOne({'_id': req.body.id});
-        // await Answer.deleteOne({"question_id": req.body._id});
-        // await Question.deleteOne({"_id": req.body._id});
+        // await Answer.deleteOne({"question_id": req.body.id});
+        // await Question.deleteOne({"_id": req.body.id});
         res.status(200).send({'status': 'ok'});
     // }
     // catch (err) {
