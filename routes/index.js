@@ -501,9 +501,14 @@ router.get('/api/mobile/v1/poll/detail/:id', verifyToken, require('./api/mobile/
  *       description: "Токен"
  *       required: true
  *       type: "string"
+ *     - name: "poll_id"
+ *       in: "x-www-form-urlencoded"
+ *       description: "ID опроса"
+ *       required: true
+ *       type: "string"
  *     - name: "question_id"
  *       in: "x-www-form-urlencoded"
- *       description: "ID вопроса"
+ *       description: "ID вопроса. Будет answers: [{обькт вопроса с этим полем и ниже},{}]"
  *       required: true
  *       type: "string"
  *     - name: "text"
