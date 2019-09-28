@@ -1,10 +1,10 @@
 const FCM = require('fcm-node');
 const serverKey = 'AAAAihaAVx0:APA91bFCGHRn_Ch4HcbmE4ignRV5RA6kFyV81FhJZZEOV2YEZ53qiJUm8JntZ44CxyZrsDdMSbI8PqPa8DOxNfyA1GDUOlt3agEkdLjnRx_BDlUG_XGksHR4rgdGBMz3tKGIVdfKxJKQ';
 
-function sendPushNotification(user, title, body, data) {
+function sendPushNotification(token, title, body, data) {
         let fcm = new FCM(serverKey);
         let message = {
-        to: user.firebase_token,
+        to: token,
         notification: {
             title: title,
             body: body
