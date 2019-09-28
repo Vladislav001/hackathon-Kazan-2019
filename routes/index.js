@@ -412,7 +412,49 @@ router.post('/api/mobile/v1/user/update', verifyToken, require('./api/mobile/v1/
  */
 router.get('/api/mobile/v1/poll/get-list', verifyToken, require('./api/mobile/v1/poll/get_list').get);
 
-
+/**
+ * @swagger
+ * /api/mobile/v1/poll/detail/id:
+ *   get:
+ *     tags:
+ *       - ""
+ *     summary: "Детальная страница опроса"
+ *     description: ""
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: "x-access-token"
+ *       in: "header"
+ *       description: "Токен"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       200:
+ *        description: Данные получены
+ *        examples:
+ *           application/json: { "_id": "5d8ea993d778eb0d0cd69c3b", "title": "t1", "text": "John Smith",
+ *           "video": "video href", "date_created": "1569630611960", "is_company": 1, "age": { "min": 4, "max": 35 },
+ *           "gender": "man", "questions": [ { "options": [ "Ford", "BMW", "Fiat" ], "_id": "5d8ea993d778eb0d0cd69c3c",
+ *           "title": "str1", "type": "type1", "poll_id": "5d8ea993d778eb0d0cd69c3b"}]}
+ *       403:
+ *         description: Введены неверные данные
+ *         examples:
+ *           application/json:
+ *            {
+ *              errors:
+ *              [
+ *                {
+ *                "id": 1, "title":Не заполнены обязательные поля, "detail": "Пустое значение токена"
+ *                },{
+ *                "id": 2, "code": token-Invalid, "title":Введены неверные данные, "detail": "Введен неверный токен, или срок действия токена истек"
+ *                },{
+ *                "id": 2, "token": token-Invalid, "title":Введены неверные данные, "detail": "Пользователь с введенным токеном был удален"
+ *                }
+ *              ]
+ *            }
+ *
+ */
+router.get('/api/mobile/v1/poll/detail/:id', verifyToken, require('./api/mobile/v1/poll/detail').get);
 
 
 
