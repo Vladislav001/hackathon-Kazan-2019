@@ -10,20 +10,21 @@ exports.get = async function (req, res) {
             polls = await Poll.find({
                // legal_type: 'company'
                 "$or": [{
-                    'legal_type': 'company'
+                    legal_type: 'company'
                 }, {
-                    'legal_type': null
+                    legal_type: null
                 }]
             });
         } else if (user.legal_type == 'person') {
             let filter = {
                 //legal_type: 'person'
-                "$or": [{
-                    'legal_type': 'person'
+                $or: [{
+                    legal_type: 'person'
                 }, {
-                    'legal_type': null
+                    legal_type: null
                 }]
             };
+
             if (user.gender) {
                 filter.gender = user.gender;
             }
@@ -32,7 +33,7 @@ exports.get = async function (req, res) {
                 filter['age.max'] = {$gte: user.age};
             }
 
-            polls = await Poll.find(filter);
+            polls = await Poll.find({});
         } else if (user.legal_type == 'null' || !user.legal_type) {
             polls = await Poll.find({});
         }
