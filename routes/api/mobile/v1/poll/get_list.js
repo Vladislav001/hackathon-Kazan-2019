@@ -9,7 +9,7 @@ exports.get = async function (req, res) {
         if (user.legal_type == 'company') {
             polls = await Poll.find({
                // legal_type: 'company'
-                "$or": [{
+                $or: [{
                     legal_type: 'company'
                 }, {
                     legal_type: null
