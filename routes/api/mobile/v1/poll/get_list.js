@@ -25,15 +25,15 @@ exports.get = async function (req, res) {
                 }]
             };
 
-            if (user.gender) {
-                filter.gender = user.gender;
-            }
-            if (user.age) {
-                filter['age.min'] = {$lte: user.age};
-                filter['age.max'] = {$gte: user.age};
-            }
+            // if (user.gender) {
+            //     filter.gender = user.gender;
+            // }
+            // if (user.age) {
+            //     filter['age.min'] = {$lte: user.age};
+            //     filter['age.max'] = {$gte: user.age};
+            // }
 
-            polls = await Poll.find({});
+            polls = await Poll.find(filter);
         } else if (user.legal_type == 'null' || !user.legal_type) {
             polls = await Poll.find({});
         }
